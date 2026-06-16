@@ -83,14 +83,6 @@ No libraries, no frameworks, no nonsense. Just pure annoying code.
 
 ---
 
-## Known bugs (aka "features")
-
-- Sometimes the button hides behind your cursor (pure coincidence, I swear)
-- On tiny screens, it might get stuck in corners (it's having a moment)
-- You might rage quit (that's not a bug, that's intended)
-
----
-
 ## Things I could add but probably won't
 
 - Sound effects (so it can annoy you more)
@@ -107,8 +99,6 @@ Some guy who had nothing better to do.
 
 If you want to make it worse, feel free to edit the code. Make the button faster. Make it teleport every half second. Make it disappear entirely.
 
-Go wild.
-
 ---
 
 ## Final warning
@@ -122,7 +112,7 @@ This game will:
 
 You've been warned.
 
-Now go click the damn button.
+Now go click the button.
 
 ---
 
