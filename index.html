@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fir=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Crazy button</title>
     <style>
         * {
@@ -18,7 +18,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: system-ui, 'Seoge UI', 'Courier New', monospace;
+            font-family: system-ui, 'Segoe UI', 'Courier New', monospace;
             padding: 20px;
             position: relative;
             overflow-x: hidden;
@@ -42,7 +42,7 @@
             color: white;
             font-size: 1rem;
             font-weight: bold;
-            font-family: innherit;
+            font-family: inherit;
             padding: 10px 18px;
             border-radius: 60px;
             cursor: pointer;
@@ -160,11 +160,10 @@
             pointer-events: none;
         }
     </style>
-</head> 
-</body>
+</head>
   
   
-<div  class="instruction">
+<div class="instruction">
   🎯 click the TINY RED BUTTON ... it runs away every time!
 </div>
 
@@ -173,13 +172,13 @@
   <button class="annoy-btn" id="movingBtn"> 👉 CLICK 👈</button>
 </div>
 
-</footer>⚡ patience test . how many click can you handle?</footer>
+<footer>⚡ patience test . how many click can you handle?</footer>
 
 
-</script>
-    (function()) {
+<script>
+    (function() {
         const btn = document.getElementById('movingBtn');
-        const gameZone = document.getElementById('gameZone')
+        const gameZone = document.getElementById('gameZone');
 
         let clicksDone = 0;
         let gameActive = true;
@@ -220,7 +219,7 @@
             <h2>Congratulations!</h2>
             <p>You clicked the crazy button <strong>15 times</strong>! <br>
             Your patience is legendry.</p>
-            <p>Share it with your friends so they suffer too<p>
+            <p>Share it with your friends so they suffer too</p>
             <button class="play-again-btn" id="playAgainBtn">PLAY AGAIN!</button>
             `;
             document.body.appendChild(card);
@@ -315,6 +314,27 @@
         window.addEventListener('load', ()=> {
             setupContainer();
             initPosition();
-        })
-
-    }
+            btn.addEventListener('click', onButtonClick);
+            window.addEventListener('resize', onWindowResize);
+            window.addEventListener('orientationchange', () => {
+                setTimeout(()=> {
+                    if (gameActive && !victoryCardShown) {
+                        const zone = gameZone.getBoundingClientRect();
+                        const btnW = btn.offsetWidth;
+                        const btnH = btn.offsetHeight;
+                        const {x,y}= getRandomPosition(btnW, btnH, zone);
+                        btn.style.left = x+'px';
+                        btn.style.top = y+'px';
+                    }
+                }, 50);
+            });
+            clicksDone=0;
+            gameActive=true;
+            victoryCardShown= false;
+            btn.style.display='block';
+            btn.classList.remove('hidden-btn');
+        });
+    })();
+</script>
+</body>
+</html>
