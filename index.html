@@ -306,3 +306,15 @@
             btn.style.top= y+'px';
             btn.style.margin='0';
         }
+        function setupContainer() {
+            if (getComputedStyle(gameZone).position === 'static'){
+                gameZone.style.position='relative';
+            }
+            gameZone.style.minHeight='75vh';
+        }
+        window.addEventListener('load', ()=> {
+            setupContainer();
+            initPosition();
+        })
+
+    }
