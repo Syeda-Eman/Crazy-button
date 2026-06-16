@@ -2,6 +2,8 @@
 
 **The button that runs away from you.**
 
+Note: If you see the button very small, try zooming the screen.
+
 ---
 
 ## What is this?
