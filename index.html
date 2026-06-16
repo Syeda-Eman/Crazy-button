@@ -249,4 +249,60 @@
                 btn.style.position = 'absolute';
             }, 10);
         }
-    }
+        function onButtonClick(e) {
+            e.stopPropagation();
+            if (!gameActive) return;
+            if (victoryCardShown) return;
+
+            clicksDone++;
+            if(clicksDone >= REQUIRED_CLICKS) {
+                gameActive=false;
+                showVictory();
+                return;
+            }
+            const zoneRect = gameZone.getBoundingClientRect();
+            const btnW = btn.offsetWidth;
+            const btnH = btn.offsetHeight;
+            const {x,y} = getRandomPosition(btnW, btnH, zoneRect);
+            btn.style.left = x + 'px';
+            btn.style.top = y+'px';
+            if (navigator.vibrate){
+                navigator.vibrate(30);
+            }
+            btn.style.transform = 'scale(0.96)';
+            setTimeout(()=> {if(btn) btn.style.transform='';}, 70);
+        }
+        let resizeTimeout;
+        function onWindowResize() {
+            if (!gameActive || victoryCardShown) return;
+            clearTimeout(resizeTimeout);
+            resizeTimeout=setTimeout(()=> {
+                if (!gameActive || victoryCardShown) return;
+                const zone = gameZone.getBoundingClientRect();
+                const btnW = btn.offsetWidth;
+                const btnH = btn.offsetHeight;
+                let leftVal = parseFloat(btn.style.left);
+                let topVal = parseFloat(btn.style.top);
+                if (isNan(leftVal)) leftVal= 0;
+                if (isNan(topVal)) topVal=0;
+                const maxX = zone.width=btnW;
+                const maxY = zone.height-btnH;
+                let newX = Math.min(maxX, Math.max(0, leftVal));
+                let newY = Math.min(maxY, Math.max(0, topVal));
+                if(newX !== leftVal || newY !== topVal) {
+                    const fresh = getRandomPosition(btnW, btnH, zone);
+                    btn.style.left = fresh.x+'px';
+                    btn.style.top = fresh.y+'px';
+                }
+            }, 80);
+        }
+        function initPosition() {
+            const zone = gameZone.getBoundingClientRect();
+            const btnW = btn.offsetWidth;
+            const btnH = btn.offsetHeight;
+            const {x,y} = getRandomPosition(btnW, btnH, zone);
+            btn.style.position = 'absolute';
+            btn.style.left = x + 'px';
+            btn.style.top= y+'px';
+            btn.style.margin='0';
+        }
